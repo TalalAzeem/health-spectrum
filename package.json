@@ -1,0 +1,15 @@
+{
+  "name": "health-spectrum",
+  "version": "1.0.0",
+  "description": "Comprehensive Health & Wellness Platform with AI Symptoms Identifier, Diet & Exercise Planner, and Mental Health Assessment.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "author": "AI Engineer",
+  "license": "ISC"
+}

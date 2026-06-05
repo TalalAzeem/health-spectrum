@@ -1,0 +1,326 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="Design.css">
+    <html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Checking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-heartbeat"></i>
+                <span>Health Spectrum</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link" data-page="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="symptoms.html" class="nav-link" data-page="symptom-checker">Symptom Identify</a>
+                </li>
+                <li class="nav-item">
+                    <a href="MH.html" class="nav-link" data-page="mental-health">Mental Health</a>
+                </li>
+                <li class="nav-item">
+                    <a href="DAE.html" class="nav-link" data-page="diet-exercise">Diet & Exercise</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link" data-page="about">About Us</a>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+        <main class="main-content">
+        <!-- Mental Health Page -->
+        <div id="mental-health" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Mental Health Assessment</h1>
+                    <p>Take a comprehensive mental wellness evaluation</p>
+                </div>
+                
+                <div class="mental-health-container">
+                    <div class="assessment-form">
+                        <div class="question-container">
+                            <h3>How have you been feeling lately?</h3>
+                            <div class="mood-selector">
+                                <div class="mood-item" data-mood="excellent">
+                                    <div class="mood-emoji">😊</div>
+                                    <span>Excellent</span>
+                                </div>
+                                <div class="mood-item" data-mood="good">
+                                    <div class="mood-emoji">🙂</div>
+                                    <span>Good</span>
+                                </div>
+                                <div class="mood-item" data-mood="okay">
+                                    <div class="mood-emoji">😐</div>
+                                    <span>Okay</span>
+                                </div>
+                                <div class="mood-item" data-mood="poor">
+                                    <div class="mood-emoji">😟</div>
+                                    <span>Poor</span>
+                                </div>
+                                <div class="mood-item" data-mood="terrible">
+                                    <div class="mood-emoji">😢</div>
+                                    <span>Terrible</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="question-container">
+                            <h3>Mental Health Indicators</h3>
+                            <div class="indicators-grid">
+                                <div class="indicator-item">
+                                    <input type="checkbox" id="anxiety" value="anxiety">
+                                    <label for="anxiety">Feeling anxious</label>
+                                </div>
+                                <div class="indicator-item">
+                                    <input type="checkbox" id="depression" value="depression">
+                                    <label for="depression">Feeling depressed</label>
+                                </div>
+                                <div class="indicator-item">
+                                    <input type="checkbox" id="stress" value="stress">
+                                    <label for="stress">High stress levels</label>
+                                </div>
+                                <div class="indicator-item">
+                                    <input type="checkbox" id="insomnia" value="insomnia">
+                                    <label for="insomnia">Sleep problems</label>
+                                </div>
+                                <div class="indicator-item">
+                                    <input type="checkbox" id="isolation" value="isolation">
+                                    <label for="isolation">Social isolation</label>
+                                </div>
+                                <div class="indicator-item">
+                                    <input type="checkbox" id="concentration" value="concentration">
+                                    <label for="concentration">Difficulty concentrating</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="assessMentalHealth()">
+                            <i class="fas fa-brain"></i>
+                            Complete Assessment
+                        </button>
+
+                        <div class="results-container" id="assessment-results" style="display: none; margin-top: 2.5rem; border-left: 5px solid #3B7593; padding: 1.8rem; background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(90, 153, 184, 0.12); text-align: left;">
+                            <h3 style="color: #1e3347; margin-bottom: 1.2rem; font-size: 1.3rem; font-weight: 700; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem;">Your Mental Wellness Summary</h3>
+                            <div id="assessment-content"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mental-health-resources">
+                        <h3>Mental Health Resources</h3>
+                        <div class="resources-grid">
+                            <div class="resource-card">
+                                <div class="resource-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <h4>Crisis Helpline</h4>
+                                <p>24/7 emergency mental health support</p>
+                                <button class="btn btn-outline">Contact Now</button>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-icon">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <h4>Find Therapist</h4>
+                                <p>Connect with licensed mental health professionals</p>
+                                <button class="btn btn-outline">Find Help</button>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-icon">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <h4>Meditation</h4>
+                                <p>Guided meditation and mindfulness exercises</p>
+                                <button class="btn btn-outline">Start Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="index.html" class="footer-brand">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>HealthSpectrum</span>
+                    </a>
+                    <p>Your comprehensive health companion for better wellness.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="symptoms.html">Symptom Checker</a></li>
+                        <li><a href="MH.html">Mental Health</a></li>
+                        <li><a href="DAE.html">Diet & Exercise</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Emergency</h4>
+                    <p>For medical emergencies, call:</p>
+                    <p class="emergency-number">1122 or local emergency services</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 HealthSpectrum - University Final Year Project. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>
+        let selectedMood = '';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Selectable Mood Items
+            const moodItems = document.querySelectorAll('.mood-item');
+            moodItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    moodItems.forEach(i => i.classList.remove('selected'));
+                    item.classList.add('selected');
+                    selectedMood = item.getAttribute('data-mood');
+                });
+            });
+        });
+
+        async function assessMentalHealth() {
+            if (!selectedMood) {
+                alert("Please select how you have been feeling lately by clicking on a mood emoji.");
+                return;
+            }
+
+            const indicators = [];
+            const indicatorIds = ['anxiety', 'depression', 'stress', 'insomnia', 'isolation', 'concentration'];
+            indicatorIds.forEach(id => {
+                const chk = document.getElementById(id);
+                if (chk && chk.checked) {
+                    indicators.push(id);
+                }
+            });
+
+            const resultsContainer = document.getElementById('assessment-results');
+            const resultsContent = document.getElementById('assessment-content');
+
+            resultsContainer.style.display = 'block';
+            resultsContent.innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <div class="loading" style="width: 40px; height: 40px; border-width: 4px; border-top-color: #3B7593; margin-bottom: 1rem;"></div>
+                    <p style="color: #64748b; font-weight: 500;">Calculating your wellness indicators...</p>
+                </div>
+            `;
+
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
+
+            const apiBase = window.location.port === '3000' ? '' : 'http://localhost:3000';
+            try {
+                const response = await fetch(`${apiBase}/api/assess-mental-health`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ mood: selectedMood, indicators })
+                });
+
+                if (!response.ok) {
+                    const text = await response.text();
+                    throw new Error(text || `HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.error || "An error occurred during mood assessment.");
+                }
+
+                const { score, category, message, recommendations, suggestedActivities } = data.summary;
+
+                // Color coding for wellness score
+                let scoreColor = "#10B981"; // Green
+                if (score < 30) scoreColor = "#EF4444"; // Red
+                else if (score < 55) scoreColor = "#F59E0B"; // Orange
+                else if (score < 75) scoreColor = "#3B82F6"; // Blue
+
+                let recommendationsHtml = '';
+                recommendations.forEach(rec => {
+                    recommendationsHtml += `<li style="margin-bottom: 0.5rem; color: #4b5563; font-size: 0.95rem;">${rec}</li>`;
+                });
+
+                let activitiesHtml = '';
+                suggestedActivities.forEach(act => {
+                    activitiesHtml += `
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.8rem 1.2rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                            <i class="fas fa-heart" style="color: ${scoreColor}; font-size: 0.95rem;"></i>
+                            <span style="color: #1e3347; font-weight: 500; font-size: 0.9rem;">${act}</span>
+                        </div>
+                    `;
+                });
+
+                resultsContent.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; background: #f8fafc; padding: 1.2rem; border-radius: 10px;">
+                        <div>
+                            <div style="color: #64748b; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem;">Wellness Score</div>
+                            <div style="font-size: 2.2rem; font-weight: 800; color: ${scoreColor}; line-height: 1;">${score}<span style="font-size: 1.2rem; color: #94a3b8; font-weight: 500;">/100</span></div>
+                        </div>
+                        <div style="text-align: right; flex-grow: 1;">
+                            <div style="color: #64748b; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem;">Status Classification</div>
+                            <div style="font-size: 1.15rem; font-weight: 700; color: #1e3347;">${category}</div>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 2rem; margin-top: -1rem;">
+                        <div style="height: 100%; width: ${score}%; background: ${scoreColor}; border-radius: 4px; transition: width 1s ease-out;"></div>
+                    </div>
+
+                    <p style="color: #4b5563; line-height: 1.6; margin-bottom: 1.8rem; font-size: 1rem; border-left: 3px solid ${scoreColor}; padding-left: 10px; font-style: italic;">"${message}"</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                        <div>
+                            <h4 style="color: #1e3347; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-list-check" style="color: #3B7593;"></i> Actionable Advice
+                            </h4>
+                            <ul style="padding-left: 1.2rem; margin: 0; line-height: 1.5;">
+                                ${recommendationsHtml}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #1e3347; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-spa" style="color: #3B7593;"></i> Recommended Stress-Busters
+                            </h4>
+                            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                                ${activitiesHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error(error);
+                resultsContent.innerHTML = `
+                    <div style="background: #FFF5F5; border: 1.5px solid #FED7D7; border-radius: 10px; padding: 1.5rem; text-align: center; color: #C53030;">
+                        <i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                        <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Assessment Failed</h4>
+                        <p style="margin: 0; font-size: 0.9rem;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

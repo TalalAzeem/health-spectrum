@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Spectrum</title>
+    <link rel="stylesheet" href="mainstyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-heartbeat"></i>
+                <span>Health Spectrum</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link" data-page="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="symptoms.html" class="nav-link" data-page="symptom-checker">Symptom Identify</a>
+                </li>
+                <li class="nav-item">
+                    <a href="MH.html" class="nav-link" data-page="mental-health">Mental Health</a>
+                </li>
+                <li class="nav-item">
+                    <a href="DAE.html" class="nav-link" data-page="diet-exercise">Diet & Exercise</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link" data-page="about">About Us</a>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="home" class="page active page-transition">
+            <section class="hero scroll-reveal">
+                <div class="hero-content">
+                    <h1 class="hero-title scroll-reveal">Your Complete Health Companion</h1>
+                    <p class="hero-subtitle scroll-reveal">Comprehensive health monitoring, symptom analysis, and diet plans all in one place</p>
+                    <div class="hero-buttons scroll-reveal">
+                        <a href="symptoms.html" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                            Check Symptoms
+                        </a>
+                        <a href="MH.html" class="btn btn-primary">
+                            <i class="fas fa-brain"></i>
+                            Mental Health
+                        </a>
+                        <a href="DAE.html" class="btn btn-primary">
+                            <i class="fas fa-dumbbell"></i>
+                            Diet & Exercise
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image scroll-reveal slide-right">
+                    <img src="5.jpg" alt="Healthcare professional">
+                </div>
+            </section>
+
+            <section class="features scroll-reveal">
+                <div class="container">
+                    <h2 class="section-title scroll-reveal">Our Health Services</h2>
+                    <div class="features-grid">
+                        <div class="feature-card scroll-reveal slide-left" onclick="navigateToPage('symptom-checker')">
+                            <div class="feature-icon">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                            <h3>Symptom Identifier</h3>
+                            <p>Advanced AI-powered symptom analysis to help identify potential health concerns</p>
+                            <div class="feature-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card scroll-reveal" onclick="navigateToPage('mental-health')">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>Mental Health Check</h3>
+                            <p>Comprehensive mental wellness assessment and personalized support resources</p>
+                            <div class="feature-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card scroll-reveal slide-right" onclick="navigateToPage('diet-exercise')">
+                            <div class="feature-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3>Diet & Exercise Plan</h3>
+                            <p>Personalized nutrition and fitness plans tailored to your health goals</p>
+                            <div class="feature-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats scroll-reveal">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item scroll-reveal">
+                            <div class="stat-number counter-animate" data-target="10000">0</div>
+                            <div class="stat-label">Users Helped</div>
+                        </div>
+                        <div class="stat-item scroll-reveal">
+                            <div class="stat-number counter-animate" data-target="500">0</div>
+                            <div class="stat-label">Health Assessments</div>
+                        </div>
+                        <div class="stat-item scroll-reveal">
+                            <div class="stat-number counter-animate" data-target="95">0</div>
+                            <div class="stat-label">Accuracy Rate (%)</div>
+                        </div>
+                        <div class="stat-item scroll-reveal">
+                            <div class="stat-number counter-animate" data-target="24">0</div>
+                            <div class="stat-label">24/7 Support (hrs)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="index.html" class="footer-brand">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>HealthCare Pro</span>
+                    </a>
+                    <p>Your comprehensive health companion for better wellness.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="symptoms.html">Symptom Checker</a></li>
+                        <li><a href="MH.html">Mental Health</a></li>
+                        <li><a href="DAE.html">Diet & Exercise</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Emergency</h4>
+                    <p>For medical emergencies, call:</p>
+                    <p class="emergency-number">911 or local emergency services</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 HealthSpectrum - University Final Year Project. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="nav.js"></script>
+    <script src="chatbot-animations.js"></script>
+</body>
+</html>
