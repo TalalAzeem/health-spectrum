@@ -42,12 +42,12 @@ app.post('/api/analyze-symptoms', (req, res) => {
         const hasRash = descText.includes('rash') || descText.includes('skin') || descText.includes('itchy') || descText.includes('redness');
         const hasDiarrhea = descText.includes('diarrhea') || descText.includes('loose stool');
 
-        // Condition matching
+        // Enhanced condition matching with severity scoring
         if (hasFever && hasCough && hasShortnessOfBreath) {
             possibleConditions.push({
-                name: "Severe Respiratory Infection (e.g. Pneumonia, COVID-19)",
+                name: "Severe Respiratory Infection (Pneumonia/COVID-19)",
                 likelihood: "High",
-                description: "An infection of the lungs or lower respiratory tract characterized by chest tightness, difficulty breathing, fever, and coughing."
+                description: "An infection of the lungs or lower respiratory tract characterized by chest tightness, difficulty breathing, fever, and coughing. Requires immediate medical attention."
             });
             severity = "High";
             urgency = "Seek immediate medical consultation";
@@ -61,7 +61,7 @@ app.post('/api/analyze-symptoms', (req, res) => {
             urgency = "Consult a physician within 24-48 hours if symptoms persist";
         }
 
-        if (hasNausea && hasDiarrhea || (hasNausea && descText.includes('stomach'))) {
+        if ((hasNausea && hasDiarrhea) || (hasNausea && descText.includes('stomach'))) {
             possibleConditions.push({
                 name: "Gastroenteritis (Stomach Flu)",
                 likelihood: "High",
@@ -123,7 +123,7 @@ app.post('/api/analyze-symptoms', (req, res) => {
         // Advice compilation
         let advice = "Ensure you stay hydrated, rest, and eat simple, nutritious meals. Monitor your symptoms closely.";
         if (severity === "High") {
-            advice = "WARNING: Your symptoms indicate a potentially severe condition. Please visit an emergency clinic or contact a certified medical professional immediately. Avoid intense physical activity.";
+            advice = "⚠️ WARNING: Your symptoms indicate a potentially severe condition. Please visit an emergency clinic or contact a certified medical professional immediately. Avoid intense physical activity.";
         } else if (severity === "Moderate") {
             advice = "We recommend resting and keeping track of your body temperature. Consider consulting a telehealth doctor or general practitioner if your symptoms do not start to improve in 3 days.";
         }
@@ -156,24 +156,24 @@ app.post('/api/assess-mental-health', (req, res) => {
 
         // Base score by mood
         let baseScore = 100;
-        if (mood === 'excellent') baseScore = 100;
+        if (mood === 'excellent') baseScore = 95;
         else if (mood === 'good') baseScore = 80;
         else if (mood === 'okay') baseScore = 60;
-        else if (mood === 'poor') baseScore = 40;
-        else if (mood === 'terrible') baseScore = 20;
+        else if (mood === 'poor') baseScore = 35;
+        else if (mood === 'terrible') baseScore = 15;
 
         // Deductions based on negative indicators
         let deduction = 0;
         activeIndicators.forEach(ind => {
-            if (ind === 'anxiety') deduction += 12;
-            else if (ind === 'depression') deduction += 15;
-            else if (ind === 'stress') deduction += 12;
-            else if (ind === 'insomnia') deduction += 10;
-            else if (ind === 'isolation') deduction += 10;
-            else if (ind === 'concentration') deduction += 8;
+            if (ind === 'anxiety') deduction += 15;
+            else if (ind === 'depression') deduction += 20;
+            else if (ind === 'stress') deduction += 15;
+            else if (ind === 'insomnia') deduction += 12;
+            else if (ind === 'isolation') deduction += 12;
+            else if (ind === 'concentration') deduction += 10;
         });
 
-        const score = Math.max(10, baseScore - deduction);
+        const score = Math.max(10, Math.min(100, baseScore - deduction));
 
         // Classify based on final score
         let category = "Optimal Mental Wellness";
@@ -189,7 +189,21 @@ app.post('/api/assess-mental-health', (req, res) => {
             "Journaling about weekly achievements"
         ];
 
-        if (score < 30) {
+        if (score < 20) {
+            category = "Mental Health Crisis";
+            message = "Your assessment indicates you need immediate support. Please reach out for help or call emergency services.";
+            recommendations = [
+                "Call emergency services or crisis helpline immediately",
+                "Reach out to trusted family or friends",
+                "Go to nearest emergency room",
+                "Do not isolate yourself"
+            ];
+            suggestedActivities = [
+                "Call 911/Emergency services",
+                "Contact crisis helpline",
+                "Tell someone you trust immediately"
+            ];
+        } else if (score < 30) {
             category = "Severe Emotional Distress";
             message = "Your assessment scores suggest you are going through a highly challenging emotional period. Please lean on support structures.";
             recommendations = [
@@ -204,7 +218,7 @@ app.post('/api/assess-mental-health', (req, res) => {
             ];
         } else if (score < 55) {
             category = "High Stress and Emotional Strain";
-            message = "You are experiencing a elevated degree of stress or anxiety. Taking active steps to recover energy is recommended.";
+            message = "You are experiencing an elevated degree of stress or anxiety. Taking active steps to recover energy is recommended.";
             recommendations = [
                 "Prioritize sleep hygiene: limit screen time before bed and maintain cool room temperature.",
                 "Practice setting clear boundaries at work or school to reduce overload.",
@@ -233,7 +247,7 @@ app.post('/api/assess-mental-health', (req, res) => {
         return res.json({
             success: true,
             summary: {
-                score,
+                score: Math.round(score),
                 category,
                 message,
                 recommendations,
@@ -265,9 +279,8 @@ app.post('/api/generate-plan', (req, res) => {
         else if (bmi >= 25 && bmi < 29.9) bmiCategory = "Overweight";
         else if (bmi >= 30) bmiCategory = "Obese";
 
-        // 2. TDEE Calculation (Using general standard formulas)
-        // Assume default BMR of 1600 kcal as base, then calculate using height/weight
-        const baseBmr = (10 * wKg) + (6.25 * hCm) - (5 * 30) + 5; // Mifflin-St Jeor for 30yo male
+        // 2. TDEE Calculation (Using Mifflin-St Jeor formula)
+        const baseBmr = (10 * wKg) + (6.25 * hCm) - (5 * 30) + 5;
         let multiplier = 1.2;
         if (activityLevel === 'sedentary') multiplier = 1.2;
         else if (activityLevel === 'light') multiplier = 1.375;
@@ -284,7 +297,7 @@ app.post('/api/generate-plan', (req, res) => {
         else if (goal === 'muscle') dailyCalories = tdee + 300;
         else if (goal === 'endurance') dailyCalories = tdee + 250;
 
-        dailyCalories = Math.max(1200, dailyCalories); // Floor it to safe health level
+        dailyCalories = Math.max(1200, dailyCalories);
 
         // 4. Generate plans based on goal
         let dietPlan = {};
@@ -359,10 +372,15 @@ app.post('/api/generate-plan', (req, res) => {
     }
 });
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+    res.json({ status: "Health Spectrum server is running", timestamp: new Date().toISOString() });
+});
+
 // Start listening
 app.listen(PORT, () => {
-    console.log(`==================================================`);
+    console.log(`\n${'='.repeat(60)}`);
     console.log(`Health Spectrum Backend Server is running successfully.`);
     console.log(`URL: http://localhost:${PORT}`);
-    console.log(`==================================================`);
+    console.log(`${'='.repeat(60)}\n`);
 });

@@ -1,8 +1,82 @@
+:root {
+    color-scheme: light;
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --bg: #eff5fb;
+    --text: #1e3347;
+    --muted: #64748b;
+    --primary: #3b7593;
+    --primary-strong: #0f766e;
+    --accent: #49a46c;
+    --danger: #dc2626;
+    --radius: 24px;
+    --shadow: 0 24px 60px rgba(59, 117, 147, 0.12);
+    --transition: 250ms ease;
+    --max-width: 1200px;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+    background: radial-gradient(circle at top, rgba(94, 158, 255, 0.2), transparent 26%), linear-gradient(180deg, #eef5fb 0%, #f8fbff 45%, #ffffff 100%);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: var(--text);
+    background: transparent;
+    min-height: 100vh;
+    text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button,
+input,
+select,
+textarea,
+a {
+    touch-action: manipulation;
+}
+
+button {
+    font: inherit;
+    border: none;
+    background: transparent;
+    border-radius: 16px;
+}
+
+button,
+.btn {
+    min-height: 48px;
+}
+
+input,
+select,
+textarea {
+    background: var(--surface);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 14px;
+}
+
+.container {
+    width: min(100% - 2rem, var(--max-width));
+    margin: 0 auto;
+}
+
 /* Navigation */
 .navbar {
     background: rgba(255, 255, 255, 0.95);
@@ -63,16 +137,29 @@
 .hamburger {
     display: none;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
     cursor: pointer;
+    gap: 5px;
+    padding: 0;
+}
+
+.hamburger:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 .bar {
-    width: 25px;
+    width: 26px;
     height: 3px;
-    background-color: #333;
+    background-color: var(--text);
     margin: 3px 0;
-    transition: 0.3s;
-    border-radius: 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-radius: 99px;
 }
 .main-content {
     margin-top: 80px;
@@ -94,13 +181,6 @@
 .page-header p {
     font-size: 1.1rem;
     color: #64748b;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #fff;
 }
 
 .symptom-checker-container {
@@ -735,21 +815,76 @@ svg {
     
     .nav-menu {
         position: fixed;
-        left: -100%;
-        top: 80px;
+        inset: 80px 0 0 0;
+        transform: translateX(-100%);
         flex-direction: column;
-        background-color: white;
+        background-color: var(--surface);
         width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 2rem 0;
+        max-width: 320px;
+        text-align: left;
+        transition: transform 0.25s var(--transition);
+        box-shadow: 0 22px 55px rgba(20, 44, 81, 0.14);
+        padding: 1.5rem 0;
+        z-index: 1100;
+        overflow-y: auto;
+        overscroll-behavior: contain;
     }
     
     .nav-menu.active {
-        left: 0;
+        transform: translateX(0);
     }
-    
+
+    .nav-menu li {
+        margin: 0.5rem 0;
+    }
+
+    .nav-menu .nav-link {
+        display: block;
+        width: 100%;
+        padding: 1rem 1.75rem;
+        margin: 0;
+        border-radius: 0;
+        text-align: left;
+    }
+
+    .nav-menu .nav-link:hover,
+    .nav-menu .nav-link.active {
+        background: rgba(59, 117, 147, 0.08);
+    }
+
+    .btn {
+        min-height: 48px;
+        padding: 14px 22px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        min-height: 50px;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 56px 20px 40px;
+    }
+
+    .hero-image {
+        max-width: 420px;
+        margin: 1.5rem auto 0;
+    }
 
     .hero-title {
         font-size: 2.5rem;
@@ -823,11 +958,6 @@ svg {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
 }
 
 /* Selection color */
